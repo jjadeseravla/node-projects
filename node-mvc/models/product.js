@@ -6,19 +6,42 @@ const p = path.join(path.dirname(require.main.filename),
 'products.json'
 );
 
+// const getProductsFromFile = (aCallback) => {
+//   fs.readFile(p, (err, fileContent) => {
+//     if (err) {
+//       return aCallback([]) // dont return []
+//     }
+//     // aCallback(JSON.parse(fileContent));
+//     const products = JSON.parse(fileContent);
+//     aCallback(products);
+//   });
+// }
 const getProductsFromFile = (aCallback) => {
   fs.readFile(p, (err, fileContent) => {
     if (err) {
-      return aCallback([]) // dont return []
+      return aCallback([]); // Return an empty array if there's an error reading the file
     }
-    // aCallback(JSON.parse(fileContent));
-    const products = JSON.parse(fileContent);
-    aCallback(products);
+
+    // Check if fileContent is empty
+    if (!fileContent || fileContent.length === 0) {
+      return aCallback([]); // Return an empty array if the file content is empty
+    }
+
+    try {
+      const products = JSON.parse(fileContent);
+      aCallback(products);
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      return aCallback([]); // Return an empty array if there's an error parsing JSON
+    }
   });
-}
+};
 module.exports = class Product {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   // store an arr of products and fetch it
