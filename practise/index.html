@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click Test</title>
+</head>
+<body>
+    <script>
+        for (var i = 0; i < 5; i++) {
+            var btn = document.createElement('button');
+            btn.appendChild(document.createTextNode('Button ' + i));
+            btn.addEventListener('click', function(){ console.log(i); });
+            document.body.appendChild(btn);
+        }
+        for (var i = 0; i < 5; i++) {
+            var btn = document.createElement('button');
+            btn.appendChild(document.createTextNode('Button ' + i));
+            btn.addEventListener('click', (function(index) {
+                return function() {
+                    console.log(index);
+                };
+            })(i));
+            document.body.appendChild(btn);
+        }
+    </script>
+</body>
+</html>
+
+<!-- No matter what button the user clicks the number 5 will always be logged to the console. 
+This is because, at the point that the onclick method is invoked (for any of the buttons), 
+the for loop has already completed and the variable i already has a value of 5.  -->
+
+<!-- fix issue by the second for loop above or by replacing var with let
+Using let instead of var will also fix the issue with closures in the loop. 
+This is because let has block scope, meaning it creates a new binding for each iteration of the loop,
+whereas var has function scope.  -->
