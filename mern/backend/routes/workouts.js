@@ -1,5 +1,5 @@
 const express = require('express');
-const WorkoutModel = require('../models/WorkoutModel');
+const WorkoutModel = require('../models/workoutModel');
 const {
   createWorkout,
   getWorkouts,
