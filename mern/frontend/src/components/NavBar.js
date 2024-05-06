@@ -15,7 +15,7 @@ const NavBar = () => {
         <nav>
           <div>
             {/* removed logout() */}
-          <button onClick={logout}>Logout</button>
+          <button onClick={() => logout()}>Logout</button>
           </div>
           <div>
             <Link to="/login"> Login</Link>
