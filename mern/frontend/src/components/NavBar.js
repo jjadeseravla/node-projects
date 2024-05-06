@@ -14,7 +14,8 @@ const NavBar = () => {
         </Link>
         <nav>
           <div>
-          <button onClick={logout()}>Logout</button>
+            {/* removed logout() */}
+          <button onClick={logout}>Logout</button>
           </div>
           <div>
             <Link to="/login"> Login</Link>

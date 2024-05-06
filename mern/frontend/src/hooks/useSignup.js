@@ -17,7 +17,7 @@ export const useSignup = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = response.json();
+      const data = await response.json();
       if (!response.ok) {
         setIsLoading(false);
         setError(data.error);
@@ -27,6 +27,7 @@ export const useSignup = () => {
         // take JSON webtoken we get back and store it somewhere in the browser, so
         // if user closes browser and opens it again onto the website, they still have
         // that JSON webtoken for that user stored in the browser, by saving it to local storage
+        // 'data' in the line below is the token and email (because thats how you set it in userController)
         localStorage.setItem('user', JSON.stringify(data)); // data being the email and JSON webtoken we get back
         // update authContext with the user email we get back
         // so we are storing the email in the user property in dispatch, with the action LOGIN

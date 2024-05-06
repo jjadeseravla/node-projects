@@ -23,8 +23,8 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.signup(email, password);
-    //creten a token
+    const user = await User.signup(email, password); // signup is fn we created in model
+    //create a token
     const token = createToken(user._id);
     res.status(200).json({ email, token }) // the token is the headers, payload and secret all encoded and bunched together
   } catch (e) {
