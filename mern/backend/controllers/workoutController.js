@@ -2,8 +2,11 @@ const WorkoutModel = require('../models/workoutModel');
 const mongoose = require('mongoose');
 
 //get all
-const getWorkouts = async(req, res) => {
-  const workouts = await WorkoutModel.find({}).sort({ createdAt: -1 });
+const getWorkouts = async (req, res) => {
+  const user_id = req.user._id;
+  const workouts = await WorkoutModel.find({ user_id }).sort({ createdAt: -1 });
+  // will only find docs by current logged in user with the user_id,
+  // and fgive those ones back to the broser in workouts (line below)
   res.status(200).json(workouts)
 };
 
@@ -28,8 +31,9 @@ const createWorkout = async (req, res) => {
   const { title, load, reps } = req.body;
   // add doc to db
   try {
+    const user_id = req.user._id;
     const workout = await WorkoutModel.create({
-      title, load, reps
+      title, load, reps, user_id
     });
     res.status(200).json(workout)
   } catch (e) {
